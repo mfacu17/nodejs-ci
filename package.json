@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-ci",
+  "version": "1.0.0",
+  "description": "\"# nodejs-ci\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest tests/app.test.js",
+    "start": "node src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mfacu17/nodejs-ci.git"
+  },
+  "author": "Facundo Montero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mfacu17/nodejs-ci/issues"
+  },
+  "homepage": "https://github.com/mfacu17/nodejs-ci#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  }
+}
