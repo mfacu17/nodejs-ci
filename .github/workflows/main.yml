@@ -5,16 +5,30 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use NodeJS 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm install
-      - name: Running test
-        run: npm test
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use NodeJS 18
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: Install dependencies
+              run: npm install
+            - name: Running test
+              run: npm test
+    
+    deploy:
+        name: Deploying
+        needs: [build]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy to render
+              uses: johnbeynon/render-deploy-action@v0.0.8
+              with:
+                service-id: ${{secrets.RENDER_SERVICE_ID}}
+                api-key: ${{secrets.RENDER_API_KEY}}
+
