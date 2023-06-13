@@ -27,8 +27,19 @@ jobs:
                 SLACK_COLOR: "#9e2a2b"
                 SLACK_ICON: https://cdn-icons-png.flaticon.com/512/427/427995.png?w=740&t=st=1686683003~exp=1686683603~hmac=8aad8cdfe4755475018c53a196d6f5d5480c3c8f8e23cbccaf3f23e7a5582eab
                 SLACK_MESSAGE: "There was an error in the build😢"
-                SLACK_TITLE: "Error"
-                SLACK_USERNAME: Deploy Bot
+                SLACK_TITLE: "Build status"
+                SLACK_USERNAME: Slack Bot
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            - name: Sending Slack notifications on success
+              if: ${{ success() }}
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_CHANNEL: deploys
+                SLACK_COLOR: "#00fc4c"
+                SLACK_ICON: https://cdn-icons-png.flaticon.com/512/427/427995.png?w=740&t=st=1686683003~exp=1686683603~hmac=8aad8cdfe4755475018c53a196d6f5d5480c3c8f8e23cbccaf3f23e7a5582eab
+                SLACK_MESSAGE: "Build successful👌"
+                SLACK_TITLE: "Build status"
+                SLACK_USERNAME: Slack Bot
                 SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     
     deploy:
@@ -42,5 +53,4 @@ jobs:
               with:
                 service-id: ${{secrets.RENDER_SERVICE_ID}}
                 api-key: ${{secrets.RENDER_API_KEY}}
-            
 
