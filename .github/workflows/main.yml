@@ -3,7 +3,7 @@ name: NodeJS Github Action
 on:
   push:
     branches: [main]
-  pull-request:
+  pull_request:
     types: [opened, synchronize, reopened] 
 
 jobs:
