@@ -31,4 +31,14 @@ jobs:
               with:
                 service-id: ${{secrets.RENDER_SERVICE_ID}}
                 api-key: ${{secrets.RENDER_API_KEY}}
+            - name: Sending Slack notifications on failure
+              if: ${{ failure() }}
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_CHANNEL: deploys
+                SLACK_COLOR: "#9e2a2b"
+                SLACK_MESSAGE: "Failed deployment😢"
+                SLACK_TITLE: "Error"
+                SLACK_USERNAME: Deploy Bot
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
