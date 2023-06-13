@@ -21,7 +21,7 @@ jobs:
               run: npm install
             - name: Running test
               run: npm test
-            - name: Sending Slack notifications on failure
+            - name: Sending Slack notifications on build failure
               if: ${{ failure() }}
               uses: rtCamp/action-slack-notify@v2
               env:
@@ -32,7 +32,7 @@ jobs:
                 SLACK_TITLE: "Build status"
                 SLACK_USERNAME: Slack Bot
                 SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-            - name: Sending Slack notifications on success
+            - name: Sending Slack notifications on a build successfully
               if: ${{ success() }}
               uses: rtCamp/action-slack-notify@v2
               env:
@@ -69,4 +69,26 @@ jobs:
               with:
                 service-id: ${{secrets.RENDER_SERVICE_ID}}
                 api-key: ${{secrets.RENDER_API_KEY}}
+            - name: Sending Slack notifications on deploy failure
+              if: ${{ failure() }}
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_CHANNEL: deploys
+                SLACK_COLOR: "#9e2a2b"
+                SLACK_ICON: https://cdn-icons-png.flaticon.com/512/427/427995.png?w=740&t=st=1686683003~exp=1686683603~hmac=8aad8cdfe4755475018c53a196d6f5d5480c3c8f8e23cbccaf3f23e7a5582eab
+                SLACK_MESSAGE: "There was an error in the deploy😢"
+                SLACK_TITLE: "Deploy status"
+                SLACK_USERNAME: Slack Bot
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            - name: Sending Slack notifications on a deploy successful
+              if: ${{ success() }}
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_CHANNEL: deploys
+                SLACK_COLOR: "#00fc4c"
+                SLACK_ICON: https://cdn-icons-png.flaticon.com/512/427/427995.png?w=740&t=st=1686683003~exp=1686683603~hmac=8aad8cdfe4755475018c53a196d6f5d5480c3c8f8e23cbccaf3f23e7a5582eab
+                SLACK_MESSAGE: "Deployed successfully👌"
+                SLACK_TITLE: "Deploy status"
+                SLACK_USERNAME: Slack Bot
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
